@@ -1,0 +1,25 @@
+{
+    "version": 3,
+    "terraform_version": "0.9.11",
+    "serial": 3,
+    "lineage": "0fe465eb-916f-4d08-9327-6458eb804079",
+    "modules": [
+        {
+            "path": [
+                "root"
+            ],
+            "outputs": {},
+            "resources": {},
+            "depends_on": []
+        },
+        {
+            "path": [
+                "root",
+                "scheduled_lambda"
+            ],
+            "outputs": {},
+            "resources": {},
+            "depends_on": []
+        }
+    ]
+}
