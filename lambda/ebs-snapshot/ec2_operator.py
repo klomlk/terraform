@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 # Script: EC2 Backup Snapshots v1.1
-# Created by Florian for Bonduelle Compagny
 # Date: 2018-01-04
 
 import boto3
