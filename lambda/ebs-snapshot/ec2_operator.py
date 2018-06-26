@@ -1,7 +1,7 @@
 #!/usr/bin/python
-
-# Script: EC2 Backup Snapshots v1.1
-# Date: 2018-01-04
+# Script: EC2 Create Snapshots v1.2
+# Created by Florian for Bonduelle Compagny
+# Date: 2018-01-10
 
 import boto3
 import collections
@@ -25,24 +25,26 @@ def main(event, context):
         ], [])
 
     to_tag = collections.defaultdict(list)
+
     for instance in instances:
         try:
             retention_days = [
                 int(t.get('Value')) for t in instance['Tags']
                 if t['Key'] == 'Retention'][0]
         except IndexError:
-            retention_days = 7
+            retention_days = 15
 
         for dev in instance['BlockDeviceMappings']:
             if dev.get('Ebs', None) is None:
                 continue
             vol_id = dev['Ebs']['VolumeId']
+            deviceName = dev['DeviceName'].split('/')[-1]
+            print(deviceName)
             for name in instance['Tags']:
                 Instancename = name['Value']
                 key = name['Key']
                 if key == 'Name':
                     ins_name = Instancename
-                    print("Found EBS volume {0} on instance {1}".format(vol_id, instance['InstanceId']))
 
             for name in instance['Tags']:
                 Instancename = name['Value']
@@ -50,17 +52,17 @@ def main(event, context):
                 if key == 'Name':
                     snap = ec.create_snapshot(
                         VolumeId=vol_id,
-                        Description=Instancename,
+                        Description = Instancename,
                     )
-                    print("snap {0}".format(snap))
 
             to_tag[retention_days].append(snap['SnapshotId'])
 
             for retention_days in to_tag.keys():
                 delete_date = datetime.date.today() + datetime.timedelta(days=retention_days)
                 delete_fmt = delete_date.strftime('%Y-%m-%d')
-                snap = snap['Description'] + str('_backup_')
-                snapshot = snap + str(datetime.date.today())
+                snap = snap['Description']
+                snapshot = str(datetime.date.today()) + str('_') + deviceName +\
+                str('_backup_') + snap
                 ec.create_tags(
                     Resources=to_tag[retention_days],
                     Tags=[
@@ -68,4 +70,5 @@ def main(event, context):
                         {'Key': 'Name', 'Value': snapshot},
                     ]
                 )
-        to_tag.clear()
+            
+            to_tag.clear()

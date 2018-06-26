@@ -66,10 +66,10 @@ module "scheduled_lambda" {
   lambda_zipfile        = "${var.lambda_name}.zip"
   source_code_hash      = "${data.archive_file.functionpack.output_base64sha256}"
   handler               = "${var.function}.${var.handler}"
-  schedule_expression   = "${var.schedule_expression}"
+  schedule_expression   = "cron(0 22 * * ? *)"
   iam_policy_document   = "${data.aws_iam_policy_document.policydoc.json}"
   lambda_log_retention  = "${var.lambda_log_retention}"
   tags                  = "${var.tags}"
-  timeout		= 30
+  timeout		= 300
   period                = 15
 }

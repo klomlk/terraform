@@ -1,13 +1,13 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 # Script: EC2 Create Snapshots v1.2
-# Created by Gekko for Bonduelle Compagny
+# Created by Florian for Bonduelle Compagny
 # Date: 2018-01-10
 
 import boto3
 import collections
 import datetime
 
-ec = boto3.client('ec2', region_name='eu-west-3')
+ec = boto3.client('ec2', region_name='eu-west-1')
 
 def main(event, context):
     reservations = ec.describe_instances(
