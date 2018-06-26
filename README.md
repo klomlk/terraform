@@ -1,12 +1,12 @@
-#Architecture avec Terraform
+# Architecture avec Terraform
 
-##Résumé et objectif de ce projet
+## Résumé et objectif de ce projet
 
 Ce projet à pour objectif de recenser de manière synthétique comment manipuler Terraform en entreprise pour déployer et répliquer aisément une architecture sur AWS.
 
-##Structure de base de Terraform
+## Structure de base de Terraform
 
-###Fichier main.tf (basique)
+### Fichier main.tf (basique)
 Créez un dossier et un fichier main.tf . Ce fichier est nécessaire pour recenser toutes les ressources à déployer, toutes les déclarations se feront ici.
 
 Exemple de fichier main.tf
@@ -15,7 +15,7 @@ provider "aws" {
   region = "<Region>" # Region == eu-west-1 ou une variable ${var.region}
 }
 
-###Fichier variables.tf
+### Fichier variables.tf
 
 Additionnellement, un second fichier peut être utilisé pour recenser et déclarer toutes les variables utilisés dans main.tf. Ce fichier s'appelle variables.tf . Les types de variables doivent être déclarées: string, map,list. 
 
