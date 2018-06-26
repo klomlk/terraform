@@ -1,7 +1,11 @@
 #Architecture avec Terraform
+
 ##Résumé et objectif de ce projet
+
 Ce projet à pour objectif de recenser de manière synthétique comment manipuler Terraform en entreprise pour déployer et répliquer aisément une architecture sur AWS.
+
 ##Structure de base de Terraform
+
 ###Fichier main.tf (basique)
 Créez un dossier et un fichier main.tf . Ce fichier est nécessaire pour recenser toutes les ressources à déployer, toutes les déclarations se feront ici.
 
@@ -12,6 +16,7 @@ provider "aws" {
 }
 
 ###Fichier variables.tf
+
 Additionnellement, un second fichier peut être utilisé pour recenser et déclarer toutes les variables utilisés dans main.tf. Ce fichier s'appelle variables.tf . Les types de variables doivent être déclarées: string, map,list. 
 
 Voici ce que ça donne:
@@ -38,10 +43,10 @@ variable "variable_map" {
 
 Ces variables pourront être référencées sur dans le fichier main.tf par interpolation:
 
- "${var.variable_string}" # Pour une chaine de caractères simple
+ "${var.variable_string}" 
 
- "${var.variable_list}" # Pour récupérer l'intégralité du contenu de la liste.
- "${var.variable_list[0]}" # Pour récupérer le premier élément de la liste variable_list
+ "${var.variable_list}" 
+ "${var.variable_list[0]}" 
 
- "${lookup(var.variable_map,ireland)}" # Pour rechercher la valeur associée à la clef "ireland" dans le tableau variable_map
+ "${lookup(var.variable_map,ireland)}" 
 
